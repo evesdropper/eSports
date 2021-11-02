@@ -3,7 +3,24 @@ import datetime
 
 # helper group class
 class Group:
-    pass
+    """
+    init and str
+    """
+    members = {}
+
+    def __init__(self, name, members):
+        self.name = name # setup a name
+        for helper in members:
+            self.members[helper.name] = helper.id
+
+    def print_members(self):
+        helpers = ""
+        for name, id in self.members.items():
+            helpers += (f"{name} (ID: {id})\n")
+        return helpers
+    
+    def __str__(self):
+        return f"{self.name}\n\nMembers:\n" + str(self.print_members())
 
 # helper class
 class Helper:
@@ -75,6 +92,3 @@ class Article:
     def __str__(self):
         # return URL, Author, Date
         return "Link: {}\nAuthor: {}\nPublished: {}".format(self.url, self.author.name, self.date[:10])
-
-
-

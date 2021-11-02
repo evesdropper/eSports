@@ -1,12 +1,17 @@
-from classes import Article, Helper
+from classes import Article, Helper, Group
 import random
 
 """
 Test Sandbox for classes.py
 """
 test_helper = Helper("Person_Random", 462677714109857792)
+test_helper_2 = Helper("Apost", 479721534550704129)
+
+test_helpers = [test_helper, test_helper_2]
+test_group = Group("Test Group", test_helpers)
+
 test_article = Article(891, "Short", test_helper)
-# test_group
+test_article_2 = Article(892, "Short", test_helper_2)
 
 article_lengths = ["Short", "Medium", "Long"]
 """
@@ -27,10 +32,15 @@ def helper_stats_test(helper):
 def check_articles(helper):
     print(helper.articles)
 
+# group tests
+def group_stats_test(group):
+    print(group)
+
 """
 Input
 """
-add_articles(10, test_helper)
+# add_articles(10, test_helper)
 # article_stats_test(test_article)
-helper_stats_test(test_helper)
-check_articles(test_helper)
+# helper_stats_test(test_helper)
+# check_articles(test_helper)
+group_stats_test(test_group)
