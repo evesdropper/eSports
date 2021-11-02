@@ -2,8 +2,11 @@ from classes import Article, Helper, Group
 import random
 
 """
-Test Sandbox for classes.py
+Test Sandbox for classes.py:
+- Used to test features of classes.py to ensure they work as intended before release.
 """
+
+# Variables
 test_helper = Helper("Person_Random", 462677714109857792)
 test_helper_2 = Helper("Apost", 479721534550704129)
 
@@ -14,6 +17,7 @@ test_article = Article(891, "Short", test_helper)
 test_article_2 = Article(892, "Short", test_helper_2)
 
 article_lengths = ["Short", "Medium", "Long"]
+
 """
 Tests
 """
@@ -35,7 +39,10 @@ def check_articles(helper):
 # group tests
 def group_stats_test(group):
     print(group)
-
+    
+def group_stats_test(group):
+    print(group.display_stats(random.randint(1, 52)))
+    
 """
 Input
 """

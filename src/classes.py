@@ -1,5 +1,9 @@
 # imports
 import datetime
+import pickle
+
+# global vars
+save_file = ".saved/savefile.txt" # current save file - change if needed
 
 # helper group class
 class Group:
@@ -11,16 +15,32 @@ class Group:
     def __init__(self, name, members):
         self.name = name # setup a name
         for helper in members:
-            self.members[helper.name] = helper.id
+            self.members[helper] = helper.id
 
     def print_members(self):
         helpers = ""
-        for name, id in self.members.items():
-            helpers += (f"{name} (ID: {id})\n")
+        for helper, id in self.members.items():
+            helpers += (f"{helper.name} (ID: {id})\n")
         return helpers
     
     def __str__(self):
         return f"{self.name}\n\nMembers:\n" + str(self.print_members())
+
+    """
+    Print Weekly Stats
+    """
+    def display_stats(self, week, year=datetime.datetime.now().year):
+        stats = f":crystals: **Payments for Week {week} | {year}** :flag_gb:\n\n" # opening line
+        for helper, id in self.members.items():
+            stats += f"<@{id}> - {helper.earnings:0.2f} CRY\n"
+        return stats
+
+    """
+    Retiring Members
+    """
+    def retire_member(self, name, retired):
+        pass
+
 
 # helper class
 class Helper:
@@ -92,3 +112,5 @@ class Article:
     def __str__(self):
         # return URL, Author, Date
         return "Link: {}\nAuthor: {}\nPublished: {}".format(self.url, self.author.name, self.date[:10])
+
+# serialization
