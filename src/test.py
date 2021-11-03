@@ -1,10 +1,17 @@
+from os import read
+import pickle
 from classes import Article, Helper, Group
 import random
+
+from utils import read_object, write_object
 
 """
 Test Sandbox for classes.py:
 - Used to test features of classes.py to ensure they work as intended before release.
 """
+
+# global vars
+save_file = "./saved/testsave.txt" # current save file
 
 # Variables
 test_helper = Helper("Person_Random", 462677714109857792)
@@ -46,8 +53,11 @@ def group_stats_test(group):
 """
 Input
 """
-# add_articles(10, test_helper)
-# article_stats_test(test_article)
-# helper_stats_test(test_helper)
-# check_articles(test_helper)
-group_stats_test(test_group)
+
+# add_articles(5, test_helper)
+# with open(save_file, "wb") as f:
+#     pickle.dump(test_helper, f)
+
+with open(save_file, "rb") as f:
+    test_helper = pickle.load(f)
+helper_stats_test(test_helper)

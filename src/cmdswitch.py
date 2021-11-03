@@ -1,5 +1,6 @@
 # imports
 import sys
+from classes import Article, Helper, Group
 
 def cmd_input(args):
     # switch case
@@ -7,7 +8,8 @@ def cmd_input(args):
     match command:
         case "help":
             print(help_text)
-            return
+            return 
+        # more cases
         case _:
             print("No match found for given argument.")
             return

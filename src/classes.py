@@ -1,9 +1,10 @@
 # imports
 import datetime
 import pickle
+from utils import write_object, read_object
 
 # global vars
-save_file = ".saved/savefile.txt" # current save file - change if needed
+save_file = "./saved/testsave.txt" # current save file
 
 # helper group class
 class Group:
@@ -15,6 +16,7 @@ class Group:
     def __init__(self, name, members):
         self.name = name # setup a name
         for helper in members:
+            helper.group = self
             self.members[helper] = helper.id
 
     def print_members(self):
@@ -50,7 +52,6 @@ class Helper:
     def __init__(self, name, id, group=None): # nickname, discord id
         self.name = name
         self.id = id # basic attributes
-        #self.group.helpers[name] = id # update helpers group
         self.articles = [] # articles
         # add start time
         self.join_date = datetime.datetime.now().isoformat()
@@ -62,8 +63,7 @@ class Helper:
     def __str__(self):
         # return Name, ID, Group, Date Joined, Total Earnings, Max Earnings
         return """Basic Info\n\nName: {}\nID: {}\nGroup: {}\nDate Joined: {}
-        \n\nStats\n\nArticles Written: {}
-        \nTotal Earnings: {} crystals\nMax Earnings: {} crystals""".format(self.name, self.id, "WIP", self.join_date[:10], len(self.articles), self.total_learnings, self.max_earnings)
+        \nStats\n\nArticles Written: {}\nTotal Earnings: {} crystals\nMax Earnings: {} crystals""".format(self.name, self.id, self.group.name, self.join_date[:10], len(self.articles), self.total_learnings, self.max_earnings)
 
     """
     Earnings Methods: add earnings, reset earnings, update max earnings
@@ -81,6 +81,7 @@ class Helper:
         if self.earnings > self.max_earnings:
             self.max_earnings = self.earnings
         self.reset_earnings()
+        
 
 # article class
 class Article:
@@ -107,10 +108,8 @@ class Article:
         elif self.type == "Long":
             self.earnings = 80000
         self.author.add_earnings(self)
-        
 
     def __str__(self):
         # return URL, Author, Date
         return "Link: {}\nAuthor: {}\nPublished: {}".format(self.url, self.author.name, self.date[:10])
 
-# serialization
