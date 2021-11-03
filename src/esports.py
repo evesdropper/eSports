@@ -17,6 +17,16 @@ def cmd_input(args):
             else:
                 Group.make_group(args[1], args[2]) # currently not supported
             return
+        case "addhelper":
+            if len(args) < 4:
+                Helper.add_helper(args[1], args[2])
+            else:
+                Helper.add_helper(args[1], args[2], args[3])
+        case "addarticle":
+            if len(args) < 4:
+                Article.add_article(args[1], args[2])
+            else:
+                Article.add_article(args[1], args[2], args[3])
         case "clean":
             clean_files()
         # default

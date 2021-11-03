@@ -95,6 +95,9 @@ class Helper:
     def __repr__(self):
         return self.name
 
+    def make_helper(name, id, group = None):
+        return Helper(name, id, group)
+
     def update_group(self, group):
         utils.read_object(group, GROUP_DIR)
         group.members.update({self.id: self})
@@ -155,6 +158,9 @@ class Article:
 
     def __repr__(self):
         return f"article{self.id}"
+
+    def make_article(id, type, author, title=""):
+        return Article(id, type, author, title)
 
 # clean all files
 def clean_files():
