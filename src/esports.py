@@ -10,7 +10,7 @@ def cmd_input(args):
         case "--help":
             print(help_text)
             return 
-        # more cases
+        # initial cases - making a group
         case "makegroup":
             if len(args) < 3:
                 Group.make_group(args[1])
@@ -21,12 +21,13 @@ def cmd_input(args):
             if len(args) < 4:
                 Helper.add_helper(args[1], args[2])
             else:
-                Helper.add_helper(args[1], args[2], args[3])
+                Helper.add_helper(args[1], args[2], args[3]) # needs fixing
         case "addarticle":
-            if len(args) < 4:
-                Article.add_article(args[1], args[2])
-            else:
+            if len(args) < 5:
                 Article.add_article(args[1], args[2], args[3])
+            else:
+                Article.add_article(args[1], args[2], args[3], args[4])
+        # utils
         case "clean":
             clean_files()
         # default

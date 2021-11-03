@@ -95,11 +95,12 @@ class Helper:
     def __repr__(self):
         return self.name
 
-    def make_helper(name, id, group = None):
+    def add_helper(name, id, group = None):
         return Helper(name, id, group)
 
     def update_group(self, group):
-        utils.read_object(group, GROUP_DIR)
+        # pickle.load((open(f"{GROUP_DIR}/{group}.txt"), "rb"))
+        group = pickle.load(open(f"{GROUP_DIR}/{group}.txt", "rb"))
         group.members.update({self.id: self})
         utils.write_object(group, GROUP_DIR)
 
@@ -133,8 +134,10 @@ class Article:
     Medium - 60000 crystals
     Long - 80000 crystals
     """
+    earnings = 0
 
     def __init__(self, id, type, author, title=""):
+        author = pickle.load(open(f"{HELPER_DIR}/{author}.txt", "rb"))
         # create date, title, author, type
         self.id = id
         self.url = "https://tankisport.com/article/{}".format(self.id) # id & url
@@ -159,7 +162,7 @@ class Article:
     def __repr__(self):
         return f"article{self.id}"
 
-    def make_article(id, type, author, title=""):
+    def add_article(id, type, author, title=""):
         return Article(id, type, author, title)
 
 # clean all files
