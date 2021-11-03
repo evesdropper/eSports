@@ -30,7 +30,7 @@ class Group:
             for helper in members:
                 helper.group = self
                 self.members.update({helper.id: helper})
-        utils.write_object(self)
+        utils.write_object(self, GROUP_DIR)
 
     def print_members(self):
         helpers = ""
@@ -79,22 +79,30 @@ class Helper:
         self.total_learnings = 0
         self.max_earnings = 0
         self.earnings = 0
+        utils.write_object(self, HELPER_DIR)
     
     def __str__(self):
         # return Name, ID, Group, Date Joined, Total Earnings, Max Earnings
         return """Basic Info\n\nName: {}\nID: {}\nGroup: {}\nDate Joined: {}
         \nStats\n\nArticles Written: {}\nTotal Earnings: {} crystals\nMax Earnings: {} crystals""".format(self.name, self.id, self.group.name, self.join_date[:10], len(self.articles), self.total_learnings, self.max_earnings)
 
+    def __repr__(self):
+        return self.name
+
     def update_group(self, group):
+        utils.read_object(group, GROUP_DIR)
         group.members.update({self.id: self})
+        utils.write_object(group, GROUP_DIR)
 
     """
     Earnings Methods: add earnings, reset earnings, update max earnings
     """
     def add_earnings(self, article):
         # add earnings
+        utils.read_object(self, HELPER_DIR)
         self.earnings += article.earnings
         self.total_learnings += article.earnings
+        utils.write_object(self, HELPER_DIR)
 
     # def reset_earnings(self):
     #     # reset earnings
@@ -131,8 +139,11 @@ class Article:
         elif self.type == "Long":
             self.earnings = 80000
         self.author.add_earnings(self)
+        utils.write_object(self, ARTICLE_DIR)
 
     def __str__(self):
         # return URL, Author, Date
         return "Link: {}\nAuthor: {}\nPublished: {}".format(self.url, self.author.name, self.date[:10])
 
+    def __repr__(self):
+        return f"article{self.id}"
