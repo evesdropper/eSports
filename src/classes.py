@@ -44,20 +44,20 @@ class Group:
     def __repr__(self):
         return self.name
 
-    # """
-    # Print Weekly Stats
-    # """
-    # def display_stats(self, week, year=datetime.datetime.now().year):
-    #     stats = f":crystals: **Payments for Week {week} | {year}** :flag_gb:\n\n" # opening line
-    #     for helper in self.members.values():
-    #         stats += f"<@{helper.id}> - {helper.earnings:0.2f} CRY\n" # float to 2 decimal places cause tanki
-    #     return stats
+    """
+    Print Weekly Stats
+    """
+    def display_stats(self, week, year=datetime.datetime.now().year):
+        stats = f":crystals: **Payments for Week {week} | {year}** :flag_gb:\n\n" # opening line
+        for helper in self.members.values():
+            stats += f"<@{helper.id}> - {helper.earnings:0.2f} CRY\n" # float to 2 decimal places cause tanki
+        return stats
 
-    # """
-    # Retiring Members
-    # """
-    # def retire_member(self, name, retired):
-    #     pass
+    """
+    Retiring Members
+    """
+    def retire_member(self, name, retired):
+        pass
 
 
 # helper class
@@ -104,14 +104,16 @@ class Helper:
         self.total_learnings += article.earnings
         utils.write_object(self, HELPER_DIR)
 
-    # def reset_earnings(self):
-    #     # reset earnings
-    #     self.earnings = 0
+    def reset_earnings(self):
+        # reset earnings
+        self.earnings = 0
+        utils.write_object(self, HELPER_DIR)
 
-    # def update_earnings(self):
-    #     if self.earnings > self.max_earnings:
-    #         self.max_earnings = self.earnings
-    #     self.reset_earnings()
+    def update_earnings(self):
+        utils.read_object(self, HELPER_DIR)
+        if self.earnings > self.max_earnings:
+            self.max_earnings = self.earnings
+        self.reset_earnings()
         
 
 # article class
