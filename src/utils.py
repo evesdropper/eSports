@@ -9,6 +9,10 @@ import os
 def join(path, file):
     return os.path.join(path, file)
 
+def clean_dirs(dir):
+    for file in os.listdir(dir):
+        os.remove(join(dir, file))
+
 # serialization
 def write_object(obj, dir):
     with open(join(dir, f"{repr(obj)}.txt"), "wb") as f:

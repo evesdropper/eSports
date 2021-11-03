@@ -45,6 +45,12 @@ class Group:
         return self.name
 
     """
+    cmd line
+    """
+    def make_group(name, members = None):
+        return Group(name, members)
+
+    """
     Print Weekly Stats
     """
     def display_stats(self, week, year=datetime.datetime.now().year):
@@ -149,3 +155,8 @@ class Article:
 
     def __repr__(self):
         return f"article{self.id}"
+
+# clean all files
+def clean_files(dirs_list = dirs):
+    for dir in dirs_list:
+        utils.clean_dirs(dir)

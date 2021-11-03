@@ -20,6 +20,7 @@ test_helper_2 = Helper("Apost", 479721534550704129)
 test_helpers = [test_helper, test_helper_2]
 test_group = Group("Test Group", test_helpers)
 print(test_group)
+test_group_2 = Group.make_group("Test2", test_helpers)
 
 test_article = Article(891, "Short", test_helper)
 test_article_2 = Article(892, "Short", test_helper_2)
