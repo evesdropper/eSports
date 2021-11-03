@@ -3,7 +3,7 @@ import pickle
 from classes import Article, Helper, Group
 import random
 
-from utils import read_object, write_object
+from utils import clean_dirs, read_object, write_object
 
 """
 Test Sandbox for classes.py:
@@ -57,3 +57,4 @@ Input
 """
 test_helper_3 = Helper("Adab", 498573085432348674, test_group)
 print(test_group)
+clean_dirs

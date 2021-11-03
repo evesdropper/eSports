@@ -1,20 +1,25 @@
-# Documentation for eSports Tool
+Documentation for eSports Tool
 Command documentation for the eSports Tool (command line interface). Find commands and usage here.
 
-## Commands
+Commands
 General Usage: `python esports.py [command] [additional arguments]`
 
-### makegroup
+makegroup
 Usage: `python esports.py makegroup [name] "[user array]"`
 
 Makes a group with name `name` and users from the user array.
 
-### addhelper
+addhelper
 Usage: `python esports.py addhelper [name] [id] [group]`
 
 Adds helper to `[group]` with name `[name]` and id `[id]`.
 
-### addarticle
+addarticle
 Usage: `python esports.py addarticle [name] [id] [group]`
 
 Adds helper to `[group]` with name `[name]` and id `[id]`.
+
+clean
+Usage: `python esports.py clean`
+
+Cleans save directories.

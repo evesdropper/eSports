@@ -157,6 +157,7 @@ class Article:
         return f"article{self.id}"
 
 # clean all files
-def clean_files(dirs_list = dirs):
-    for dir in dirs_list:
+def clean_files():
+    dirs = [GROUP_DIR, HELPER_DIR, ARTICLE_DIR]
+    for dir in dirs:
         utils.clean_dirs(dir)

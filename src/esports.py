@@ -27,24 +27,7 @@ def cmd_input(args):
 
 docfile = "../docs.md"
 exception_text = "Try 'python esports.py --help' to search for a given command."
-help_text = """General Usage: python esports.py [command] [additional arguments]
-
-makegroup
-Usage: `python esports.py makegroup [name] ("[user array]")`
-
-Makes a group with name `name` and users from the user array. Make sure to put the user array in quotes.
-User array is optional and currently not supported.
-
-addhelper
-Usage: `python esports.py addhelper [name] [id] [group]`
-
-Adds helper to `[group]` with name `[name]` and id `[id]`.
-
-addarticle
-Usage: `python esports.py addarticle [name] [id] [group]`
-
-Adds helper to `[group]` with name `[name]` and id `[id]`.
-"""
+help_text = open("../docs.txt", "r").read()
 
 # get args cause python really do be like that
 args = sys.argv[1:]
