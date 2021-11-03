@@ -6,8 +6,8 @@ Current:
 - Set up Command Line Interface.
 
 To-Do
-- Set up scripts for messages. (Possible Discord Integration)
-- Set up serialization and persistence to reduce resource load and allow for easier user input.
+- Set up a list of commands.
+- Finish serialization after finding minimal working example.
 - Make GUI version if possible.
 - Documentation
 - (Low Priority) Manual load and process past data.
