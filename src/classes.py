@@ -1,10 +1,16 @@
 # imports
 import datetime
+import os, utils
 import pickle
-from utils import write_object, read_object
 
-# global vars
-save_file = "./saved/testsave.txt" # current save file
+# create save dir
+CWD = os.getcwd()
+SAVE_DIR = utils.join(CWD, "saved")
+# subdirectories
+GROUP_DIR = utils.join(SAVE_DIR, "groups")
+HELPER_DIR = utils.join(SAVE_DIR, "helpers")
+ARTICLE_DIR = utils.join(SAVE_DIR, "articles")
+dirs = [SAVE_DIR, GROUP_DIR, HELPER_DIR, ARTICLE_DIR]
 
 # helper group class
 class Group:
@@ -13,35 +19,45 @@ class Group:
     """
     members = {}
 
-    def __init__(self, name, members):
-        self.name = name # setup a name
-        for helper in members:
-            helper.group = self
-            self.members[helper] = helper.id
+    def __init__(self, name, members = None):
+        # make dirs
+        for dir in dirs:
+            if not os.path.exists(dir):
+                os.mkdir(dir)
+        # setup a name
+        self.name = name 
+        if members is not None:
+            for helper in members:
+                helper.group = self
+                self.members.update({helper.id: helper})
+        utils.write_object(self)
 
     def print_members(self):
         helpers = ""
-        for helper, id in self.members.items():
-            helpers += (f"{helper.name} (ID: {id})\n")
+        for helper in self.members.values():
+            helpers += (f"{helper.name} (ID: {helper.id})\n")
         return helpers
     
     def __str__(self):
         return f"{self.name}\n\nMembers:\n" + str(self.print_members())
 
-    """
-    Print Weekly Stats
-    """
-    def display_stats(self, week, year=datetime.datetime.now().year):
-        stats = f":crystals: **Payments for Week {week} | {year}** :flag_gb:\n\n" # opening line
-        for helper, id in self.members.items():
-            stats += f"<@{id}> - {helper.earnings:0.2f} CRY\n"
-        return stats
+    def __repr__(self):
+        return self.name
 
-    """
-    Retiring Members
-    """
-    def retire_member(self, name, retired):
-        pass
+    # """
+    # Print Weekly Stats
+    # """
+    # def display_stats(self, week, year=datetime.datetime.now().year):
+    #     stats = f":crystals: **Payments for Week {week} | {year}** :flag_gb:\n\n" # opening line
+    #     for helper in self.members.values():
+    #         stats += f"<@{helper.id}> - {helper.earnings:0.2f} CRY\n" # float to 2 decimal places cause tanki
+    #     return stats
+
+    # """
+    # Retiring Members
+    # """
+    # def retire_member(self, name, retired):
+    #     pass
 
 
 # helper class
@@ -49,12 +65,16 @@ class Helper:
     """
     init and str methods
     """
+    group = None
+
     def __init__(self, name, id, group=None): # nickname, discord id
         self.name = name
         self.id = id # basic attributes
         self.articles = [] # articles
         # add start time
         self.join_date = datetime.datetime.now().isoformat()
+        if group is not None:
+            self.update_group(group)
         # add earnings
         self.total_learnings = 0
         self.max_earnings = 0
@@ -65,6 +85,9 @@ class Helper:
         return """Basic Info\n\nName: {}\nID: {}\nGroup: {}\nDate Joined: {}
         \nStats\n\nArticles Written: {}\nTotal Earnings: {} crystals\nMax Earnings: {} crystals""".format(self.name, self.id, self.group.name, self.join_date[:10], len(self.articles), self.total_learnings, self.max_earnings)
 
+    def update_group(self, group):
+        group.members.update({self.id: self})
+
     """
     Earnings Methods: add earnings, reset earnings, update max earnings
     """
@@ -73,14 +96,14 @@ class Helper:
         self.earnings += article.earnings
         self.total_learnings += article.earnings
 
-    def reset_earnings(self):
-        # reset earnings
-        self.earnings = 0
+    # def reset_earnings(self):
+    #     # reset earnings
+    #     self.earnings = 0
 
-    def update_earnings(self):
-        if self.earnings > self.max_earnings:
-            self.max_earnings = self.earnings
-        self.reset_earnings()
+    # def update_earnings(self):
+    #     if self.earnings > self.max_earnings:
+    #         self.max_earnings = self.earnings
+    #     self.reset_earnings()
         
 
 # article class
@@ -99,7 +122,7 @@ class Article:
         self.type, self.author = type, author # type & author
         self.title, self.date =  title, datetime.datetime.now().isoformat() # title and date
         # add article to author list
-        self.author.articles.append("{}".format(self.url))
+        self.author.articles.append(self)
         # determine how much article earns and add total to author's pay
         if self.type == "Short":
             self.earnings = 40000

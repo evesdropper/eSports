@@ -19,6 +19,7 @@ test_helper_2 = Helper("Apost", 479721534550704129)
 
 test_helpers = [test_helper, test_helper_2]
 test_group = Group("Test Group", test_helpers)
+test_helper_3 = Helper("Adab", 498573085432348674, test_group)
 
 test_article = Article(891, "Short", test_helper)
 test_article_2 = Article(892, "Short", test_helper_2)
@@ -47,17 +48,17 @@ def check_articles(helper):
 def group_stats_test(group):
     print(group)
     
-def group_stats_test(group):
+def group_disp_stats(group):
     print(group.display_stats(random.randint(1, 52)))
     
 """
 Input
 """
-
-# add_articles(5, test_helper)
+# 
 # with open(save_file, "wb") as f:
-#     pickle.dump(test_helper, f)
+#     pickle.dump(test_group, f)
+# group_stats_test(test_group)
 
-with open(save_file, "rb") as f:
-    test_helper = pickle.load(f)
-helper_stats_test(test_helper)
+# with open(save_file, "rb") as f:
+#     test_group = pickle.load(f)
+# group_stats_test(test_group)
