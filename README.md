@@ -2,8 +2,7 @@
 Tool for logging eSports articles and generating scripted messages. Rough documentation in `docs.txt`, or by entering `python esports.py --help` in the command line.
 
 Current:
-- Set up classes `Group`, `Helper`, `Article` - should be fully functional with test.
-- Set up Command Line Interface.
+- Redesign for serialization.
 
 To-Do
 - Make GUI version if possible.
