@@ -19,6 +19,12 @@ def write_object(obj, dir):
             pickle.dump(obj, f)
 
 def read_object(obj, dir):
-    pickle.load(open(join(dir, f"{repr(obj)}.txt"), "rb"))
+    load = pickle.load(open(join(dir, f"{repr(obj)}.txt"), "rb"))
+    return load
 
 # exceptions
+class ESportsException(Exception):
+    """
+    Custom Exception
+    """
+    pass

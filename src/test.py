@@ -10,23 +10,6 @@ Test Sandbox for classes.py:
 - Used to test features of classes.py to ensure they work as intended before release.
 """
 
-# global vars
-save_file = "./saved/testsave.txt" # current save file
-
-# Variables
-test_helper = Helper("Person_Random", 462677714109857792)
-test_helper_2 = Helper("Apost", 479721534550704129)
-
-test_helpers = [test_helper, test_helper_2]
-test_group = Group("Test Group", test_helpers)
-print(test_group)
-test_group_2 = Group.make_group("Test2", test_helpers)
-
-test_article = Article(891, "Short", test_helper)
-test_article_2 = Article(892, "Short", test_helper_2)
-
-article_lengths = ["Short", "Medium", "Long"]
-
 """
 Tests
 """
@@ -55,6 +38,8 @@ def group_disp_stats(group):
 """
 Input
 """
-test_helper_3 = Helper("Adab", 498573085432348674, test_group)
-print(test_group)
-clean_dirs
+test_helper = Helper("Test", 123456)
+test_group = Group("testgroup", test_helper)
+
+# test_helper2 = Helper("This should've been pickled", 1237291421, test_group)
+

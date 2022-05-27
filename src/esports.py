@@ -8,9 +8,9 @@ def cmd_input(args):
     command = args[0]
     match command:
         case "--help":
-            print(help_text)
+            print("help")
             return 
-        # initial cases - making a group
+        # initialization of groups
         case "makegroup":
             if len(args) < 3:
                 Group.make_group(args[1])
@@ -18,15 +18,15 @@ def cmd_input(args):
                 Group.make_group(args[1], args[2]) # currently not supported
             return
         case "addhelper":
-            if len(args) < 4:
-                Helper.add_helper(args[1], args[2])
-            else:
-                Helper.add_helper(args[1], args[2], args[3]) # needs fixing
+            Helper.add_helper(args[1:])
         case "addarticle":
-            if len(args) < 5:
-                Article.add_article(args[1], args[2], args[3])
-            else:
-                Article.add_article(args[1], args[2], args[3], args[4])
+            Article.add_article(args[1:])
+
+        # stats commands 
+        case "groupstats":
+            Group.print_members(args[1])
+        case "helperstats":
+            Helper.print_helper_stats(args[1:])
         # utils
         case "clean":
             clean_files()
@@ -36,9 +36,9 @@ def cmd_input(args):
             return
     # end match
 
-docfile = "../docs.md"
+docfile = "../docs.txt"
 exception_text = "Try 'python esports.py --help' to search for a given command."
-help_text = open("../docs.txt", "r").read()
+help_text = open(docfile, "r").read()
 
 # get args cause python really do be like that
 args = sys.argv[1:]
